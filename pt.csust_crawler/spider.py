@@ -42,18 +42,16 @@ def get_remind_data():
 def handle_data():
     with open('reminder_data.txt','r',encoding='utf-8') as f:
         str=f.read()
-    seg_1='<li><a href="###" title="点击查看"><span>.*?</span>门课程有待提交作业</a>.*'
-    seg_2='<a href="###" onclick="window.open.*?=(\d*).*?>(.*?)</a></li>.*<li><a href="###" title="点击查看">'
-    # 贪婪匹配
-    regularexp1=re.compile(seg_1+seg_2,re.S)
-    # 非贪婪匹配
-    regularexp2=re.compile(seg_1+'?'+seg_2,re.S)
-    ans1=re.findall(regularexp1,str)
-    ans2=re.findall(regularexp2,str)
+    # seg_1='<li><a href="###" title="点击查看"><span>.*?</span>门课程有待提交作业</a>.*'
+    # seg_2='<a href="###" onclick="window.open.*?=(\d*).*?>(.*?)</a></li>.*<li><a href="###" title="点击查看">'
+    # # 贪婪匹配
+    # regularexp1=re.compile(seg_1+seg_2,re.S)
+    # # 非贪婪匹配
+    # regularexp2=re.compile(seg_1+'?'+seg_2,re.S)
+    regularexp=re.compile('<a href="###" onclick="window.open.*?lid=(\d*)&amp;t=hw.*?>(.*?)</a>',re.S)
+    ans=re.findall(regularexp,str)
     result=[]
-    for item in ans2:
-        result.append((item[0],item[1].lstrip().rstrip()))
-    for item in ans1:
+    for item in ans:
         result.append((item[0],item[1].lstrip().rstrip()))
     return result
 
@@ -111,8 +109,10 @@ def main():
 if __name__=='__main__':
     try:
         main()
-    except:
-        print("账密错误或网络异常")
+    # except:
+    #     print("账密错误或网络异常")
     finally:
         # 关闭连接
         s.close()
+        # 暂停程序，防止程序闪退
+        input()
