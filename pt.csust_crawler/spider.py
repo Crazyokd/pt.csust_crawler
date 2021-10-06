@@ -71,9 +71,9 @@ def visit_course(data):
         html=pyquery.PyQuery(response.text)
         table=html('table.valuelist')
         parse_homework_list(table.html(),name)
-        time.sleep(0.5)
+        time.sleep(1)
 
-def parse_homework_list(str,name):
+def parse_homework_list(str:str,name):
     # 注意'?'一定要转义
     regexp=re.compile('<a href="write.jsp\?hwtid=(\d*)" class="enter"',re.S)
     ans=re.findall(regexp,str)
@@ -109,8 +109,8 @@ def main():
 if __name__=='__main__':
     try:
         main()
-    # except:
-    #     print("账密错误或网络异常")
+    except:
+        print("账密错误或网络异常")
     finally:
         # 关闭连接
         s.close()
