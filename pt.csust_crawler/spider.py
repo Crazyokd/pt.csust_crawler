@@ -83,6 +83,12 @@ def parse_homework_list(str:str,name):
         parse_homework(response.text,name,i)
     print()
 
+def handle_job_content(job_content:str):
+    exp=re.compile("&lt;.*?&gt;",re.S)
+    return job_content.replace("&amp;nbsp;"," ")\
+        .replace("&lt;br/&gt;","\n").replace("&lt;strong&gt;","")\
+        .replace("&lt;/strong&gt;","")
+
 def parse_homework(str,name,id):
     re_title=re.compile('<th width="18%">标题</th>.*?<td>(.*?)&nbsp;</td>',re.S)
     title=re.findall(re_title,str)[0]
@@ -92,12 +98,12 @@ def parse_homework(str,name,id):
     deadline=re.findall(re_deadline,str)[0].strip()
     re_job_content=re.compile('<th class="top">作业内容</th>.*?<td class="text"><input type=.*?value=(.*?)>',re.S)
     job_content=re.findall(re_job_content,str)[0][1:-1].replace("&lt;p&gt;",'').replace("&lt;/p&gt;",'').strip()
-    job='标题：'+title+''+'\n发布时间：'+release_time+'\n截止时间：'+deadline+'\n作业内容：\n'+job_content+'\n'
+    job='标题：'+title+''+'\n发布时间：'+release_time+'\n截止时间：'+deadline+'\n作业内容：\n'+handle_job_content(job_content)+'\n'
     print("课程名：《"+name+"》")
     print(job)
     with open('courses/'+name+'_'+id+'.txt','w',encoding='utf-8') as f:
         f.write(job)
-    
+ 
 def main():
     get_message()
     get_remind_data()
