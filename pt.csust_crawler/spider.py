@@ -84,10 +84,13 @@ def parse_homework_list(str:str,name):
     print()
 
 def handle_job_content(job_content:str):
-    exp=re.compile("&lt;.*?&gt;",re.S)
-    return job_content.replace("&amp;nbsp;"," ")\
-        .replace("&lt;br/&gt;","\n").replace("&lt;strong&gt;","")\
-        .replace("&lt;/strong&gt;","")
+    # job_content=re.sub("&lt;.*?&gt;","",job_content)
+    # 替换空格和换行符
+    job_content=job_content.replace("&amp;nbsp;"," ")\
+        .replace("&lt;br/&gt;","\n")
+    # 去除标签
+    return re.sub("&lt;.*?&gt;","",job_content)
+    
 
 def parse_homework(str,name,id):
     re_title=re.compile('<th width="18%">标题</th>.*?<td>(.*?)&nbsp;</td>',re.S)
