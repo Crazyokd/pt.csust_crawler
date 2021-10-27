@@ -7,19 +7,16 @@
 
 控制台会输出上面的信息。
 
-另外程序还会自动创建几个文件。
+另外程序还会自动创建如下几个文件：
 
-其中`reminder_data.txt` 是课程通知的源代码（来自Ajax请求）
-
-~~`courses`文件夹中会有课程列表中每个课程主页的源代码~~（~~希望会更新进行处理~~￣□￣｜｜）
-
-**21.10.5更新：courses文件夹中含有待提交作业的详细信息，其中文件名的前半段表示课程名，后半段表示作业id。**
+- `reminder_data.txt`： 课程通知的源代码（来自Ajax请求）。
+- courses/课程文件：待提交作业的详细信息，其中文件名的前半段表示课程名，后半段表示作业id。
 
 <br>
 
-> 输入密码时采用的是getpass模块中的getpass方法，形式类似于Linux中输入密码，控制台不会进行回显(echo)。
+> - 输入密码时采用的是getpass模块中的getpass方法，形式类似于Linux中输入密码，控制台不会进行回显(echo)。
 >
-> 由于太过频繁的访问将得不到网站的数据，所以整个程序做了延时处理，运行大约花费2s左右。
+> - 由于太过频繁的访问将得不到网站的数据，所以整个程序做了延时处理，运行大约花费2s左右。
 
 ## 使用方法:
 
@@ -38,13 +35,64 @@ cd pt.csust_crawler
 安装好依赖：
 
 ```shell
-pip install requests
-pip install pyquery
+pip install -r requirements.txt
 ```
 
 运行脚本：
 
 ```shell
-python spider.py
+python get_homework.py
 ```
+
+## 附加功能：
+
+### 1、番剧下载
+
+#### 功能简介：
+
+下载《天空侵犯》到本地。（朋友想看，无意中用这种方式给做出来了:flushed:）
+
+#### 使用方法：
+
+安装依赖：
+
+```shell
+pip install -r requirements.txt		#无需重复安装
+```
+
+运行脚本：
+
+```shell
+cd sky_violation/
+python main.py
+```
+
+> 番剧将会下载在`sky_violation/sky_violation`文件夹中，请放心食用:coffee:
+
+### 2、清除系统通知
+
+#### 功能简介：
+
+清除长沙理工大学网络教学平台的系统通知（_简而言之就是把系统通知访问一遍_）
+
+> 治疗强迫症?
+
+#### 使用方法:
+
+安装依赖：
+
+```shell
+pip install -r requirements.txt		#无需重复安装
+```
+
+运行脚本：
+
+```shell
+cd pt.csust_crawler
+python clear_sn.py
+```
+
+
+
+
 

@@ -1,0 +1,5 @@
+pt.csust_crawler/table.txt
+pt.csust_crawler/reminder_data.txt
+
+__pycache__/
+*$py.class

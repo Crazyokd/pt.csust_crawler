@@ -11,7 +11,7 @@ url1='http://pt.csust.edu.cn/meol/loginCheck.do'
 url2='http://pt.csust.edu.cn/meol/welcomepage/student/interaction_reminder_v8.jsp'
 url4='http://pt.csust.edu.cn/meol/common/hw/student/hwtask.jsp?tagbug=client&strStyle=new06'
 
-data = [['logintoken', '1632975162171'], ['IPT_LOGINUSERNAME','0'],['IPT_LOGINPASSWORD','0']]
+data = [['logintoken', '1632975162171'], ['IPT_LOGINUSERNAME','201901150218'],['IPT_LOGINPASSWORD','010019']]
 
 headers={
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36'
@@ -54,6 +54,44 @@ def handle_data():
     for item in ans:
         result.append((item[0],item[1].lstrip().rstrip()))
     return result
+
+def visit_sn_list():
+    base_url='http://pt.csust.edu.cn/meol/common/inform/index_stu.jsp?'
+    prs={
+    'lid':'0',
+    's_gotopage':1
+    }  
+    while True:
+        print("开始访问第"+str(prs['s_gotopage'])+"页系统通知")
+        response=s.request(method='get',url=base_url+urlencode(prs),timeout=5,headers=headers)
+        html=pyquery.PyQuery(response.text)
+        table=html("table.valuelist").html()    
+        with open('table.txt','w',encoding='utf-8') as f:
+            f.write(table)
+        
+        # 待优化：仅爬取未访问过的系统通知
+        regularexp=re.compile('<a href="message_content.jsp\?nid=(\d*)" class="infolist"',re.S)
+        ans=re.findall(regularexp,html.html())
+        for item in ans:
+            visit_sn(item)
+        regg=re.compile('下一页',re.S)
+        next=re.findall(regg,html.html())
+        print("第"+str(prs['s_gotopage'])+"页系统通知访问完毕\n")
+        if next.__len__()==0:
+            break
+        else:
+            prs['s_gotopage']=int(prs['s_gotopage'])+1
+
+def visit_sn(id):
+    test_head=headers.copy()
+    base_url="http://pt.csust.edu.cn/meol/common/inform/message_content.jsp?"
+    params={
+        'nid':id
+    }
+    t_url=base_url+urlencode(params)
+    response=s.request(method='get',url=t_url,timeout=5,headers=test_head)
+    print("通知"+str(id)+"访问情况:"+"成功" if response.status_code==200 else "失败")  #Python不支持三元运算符
+    time.sleep(0.5)
 
 def visit_course(data):
     base_url='http://pt.csust.edu.cn/meol/jpk/course/layout/newpage/index.jsp?'
@@ -106,7 +144,12 @@ def parse_homework(str,name,id):
     print(job)
     with open('courses/'+name+'_'+id+'.txt','w',encoding='utf-8') as f:
         f.write(job)
- 
+
+def clear_sn():
+    get_message()
+    s.request(method='post',url=url1,timeout=5,headers=head,data=data)
+    visit_sn_list()
+
 def main():
     get_message()
     get_remind_data()
@@ -115,13 +158,13 @@ def main():
     print()
     visit_course(course_list)
 
-if __name__=='__main__':
-    try:
-        main()
-    except:
-        print("账密错误或网络异常")
-    finally:
-        # 关闭连接
-        s.close()
-        # 暂停程序，防止程序闪退
-        input()
+# if __name__=='__main__':
+#     try:
+#         main()
+#     except:
+#         print("账密错误或网络异常")
+#     finally:
+#         # 关闭连接
+#         s.close()
+#         # 暂停程序，防止程序闪退
+#         input()
