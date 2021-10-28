@@ -11,7 +11,7 @@ url1='http://pt.csust.edu.cn/meol/loginCheck.do'
 url2='http://pt.csust.edu.cn/meol/welcomepage/student/interaction_reminder_v8.jsp'
 url4='http://pt.csust.edu.cn/meol/common/hw/student/hwtask.jsp?tagbug=client&strStyle=new06'
 
-data = [['logintoken', '1632975162171'], ['IPT_LOGINUSERNAME','201901150218'],['IPT_LOGINPASSWORD','010019']]
+data = [['logintoken', '1632975162171'], ['IPT_LOGINUSERNAME','0'],['IPT_LOGINPASSWORD','0']]
 
 headers={
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36'
@@ -30,9 +30,10 @@ def get_message():
     data[1][1]=input("请输入学号：")
     data[2][1]=getpass.getpass("请输入密码：")
     print()
+    # 登录获取JSESSIONID
+    s.request(method='post',url=url1,timeout=5,headers=head,data=data)
 
 def get_remind_data():
-    s.request(method='post',url=url1,timeout=5,headers=head,data=data)
     response=s.request(method='get',url=url2,timeout=5,headers=other_head)
     html=pyquery.PyQuery(response.text)
     reminder=html("#reminder")
@@ -65,13 +66,13 @@ def visit_sn_list():
         print("开始访问第"+str(prs['s_gotopage'])+"页系统通知")
         response=s.request(method='get',url=base_url+urlencode(prs),timeout=5,headers=headers)
         html=pyquery.PyQuery(response.text)
-        table=html("table.valuelist").html()    
-        with open('table.txt','w',encoding='utf-8') as f:
-            f.write(table)
+        table=html("table.valuelist").html()    #table类型为str
+        # with open('table.txt','w',encoding='utf-8') as f:
+        #     f.write(table)
         
         # 待优化：仅爬取未访问过的系统通知
         regularexp=re.compile('<a href="message_content.jsp\?nid=(\d*)" class="infolist"',re.S)
-        ans=re.findall(regularexp,html.html())
+        ans=re.findall(regularexp,table)
         for item in ans:
             visit_sn(item)
         regg=re.compile('下一页',re.S)
@@ -144,10 +145,13 @@ def parse_homework(str,name,id):
     print(job)
     with open('courses/'+name+'_'+id+'.txt','w',encoding='utf-8') as f:
         f.write(job)
+    with open('courses/'+'total.txt','a',encoding='utf-8') as f:
+        f.write("\n================================================================\n") #最后的换行似乎会被忽略
+        f.write(job)
+        
 
 def clear_sn():
     get_message()
-    s.request(method='post',url=url1,timeout=5,headers=head,data=data)
     visit_sn_list()
 
 def main():
@@ -158,13 +162,13 @@ def main():
     print()
     visit_course(course_list)
 
-# if __name__=='__main__':
-#     try:
-#         main()
-#     except:
-#         print("账密错误或网络异常")
-#     finally:
-#         # 关闭连接
-#         s.close()
-#         # 暂停程序，防止程序闪退
-#         input()
+if __name__=='__main__':
+    try: 
+        clear_sn()
+    except:
+        print("账密错误或网络异常")
+    finally:
+        # 关闭连接
+        s.close()
+        # 暂停程序，防止程序闪退
+        input()
