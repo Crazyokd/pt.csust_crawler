@@ -162,13 +162,13 @@ def main():
     print()
     visit_course(course_list)
 
-# if __name__=='__main__':
-#     try: 
-#         clear_sn()
-#     except:
-#         print("账密错误或网络异常")
-#     finally:
-#         # 关闭连接
-#         s.close()
-#         # 暂停程序，防止程序闪退
-#         input()
+if __name__=='__main__':
+    try: 
+        main()
+    except:
+        print("账密错误或网络异常")
+    finally:
+        # 关闭连接
+        s.close()
+        # 暂停程序，防止程序闪退
+        # input()
