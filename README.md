@@ -18,7 +18,11 @@
 >
 > - 由于太过频繁的访问将得不到网站的数据，所以整个程序做了延时处理，运行大约花费2s左右。
 
+
+
 ## 使用方法:
+
+### 前置要求：
 
 克隆仓库：
 
@@ -38,11 +42,27 @@ cd pt.csust_crawler
 pip install -r requirements.txt
 ```
 
+### 使用方法一：爬取作业并邮件提醒
+
 运行脚本：
 
 ```shell
-python get_homework.py
+cd pt.csust_crawler
+start.bat
 ```
+
+> 邮箱相关配置请参考**[bulk-email-sender](pt.csust_crawler/bulk-email-sender/README.md)**，邮件功能参考自**[aahnik/bulk-email-sender](https://github.com/aahnik/bulk-email-sender)**。
+
+### 使用方法二：爬取作业不邮件提醒
+
+运行脚本：
+
+```shell
+cd pt.csust_crawler
+get_homework.bat
+```
+
+
 
 ## 附加功能：
 
@@ -88,11 +108,9 @@ pip install -r requirements.txt		#无需重复安装
 运行脚本：
 
 ```shell
-cd pt.csust_crawler
+cd pt.csust_crawler/pt.csust_crawler
 python clear_sn.py
 ```
-
-
 
 
 
