@@ -42,7 +42,8 @@ cd pt.csust_crawler
 pip install -r requirements.txt
 ```
 
-### 使用方法一：爬取作业并邮件提醒
+### 使用方法
+#### 1. 爬取作业并邮件提醒
 
 运行脚本：
 
@@ -51,9 +52,9 @@ cd pt.csust_crawler
 start.bat
 ```
 
-> 邮箱相关配置请参考**[bulk-email-sender](pt.csust_crawler/bulk-email-sender/README.md)**，邮件功能参考自**[aahnik/bulk-email-sender](https://github.com/aahnik/bulk-email-sender)**。
+> 邮箱相关配置请参考[**bulk-email-sender**](pt.csust_crawler/bulk-email-sender/README.md)，邮件功能参考自[**aahnik/bulk-email-sender**](https://github.com/aahnik/bulk-email-sender)。
 
-### 使用方法二：爬取作业不邮件提醒
+#### 2. 爬取作业不邮件提醒
 
 运行脚本：
 
