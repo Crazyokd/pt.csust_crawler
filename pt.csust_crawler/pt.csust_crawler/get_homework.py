@@ -9,4 +9,4 @@ if __name__=='__main__':
         # 关闭连接
         spider.s.close()
         # 暂停程序，防止程序闪退
-        input()
+        # input()
