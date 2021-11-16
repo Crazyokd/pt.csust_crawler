@@ -154,16 +154,23 @@ def clear_sn():
     get_message()
     visit_sn_list()
 
-def main():
-    get_message()
+def main():    
     get_remind_data()
     course_list=handle_data()
     print(course_list)
     print()
     visit_course(course_list)
 
+def start_with_email(account,password):
+    data[1][1]=account
+    data[2][1]=password
+    # 登录获取JSESSIONID
+    s.request(method='post',url=url1,timeout=5,headers=head,data=data)
+    main()
+
 if __name__=='__main__':
-    try: 
+    try:
+        get_message()
         main()
     except:
         print("账密错误或网络异常")
