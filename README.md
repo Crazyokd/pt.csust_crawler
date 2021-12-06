@@ -60,8 +60,12 @@ start.bat
 
 ```shell
 cd pt.csust_crawler
+# 方法一：使用bat脚本
 get_homework.bat
+# 方法二：执行python文件
+python ./pt.csust_crawler/get_homework.py
 ```
+> **注意：必须在bat脚本目录下，否则相对路径会发生错误**
 
 
 
