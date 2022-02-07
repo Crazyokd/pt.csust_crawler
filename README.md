@@ -11,28 +11,19 @@
 
 - `reminder_data.txt`： 课程通知的源代码（来自Ajax请求）。
 - courses/课程文件：待提交作业的详细信息，其中文件名的前半段表示课程名，后半段表示作业id。
-
 <br>
 
 > - 输入密码时采用的是getpass模块中的getpass方法，形式类似于Linux中输入密码，控制台不会进行回显(echo)。
 >
 > - 由于太过频繁的访问将得不到网站的数据，所以整个程序做了延时处理，运行大约花费2s左右。
 
-
-
 ## 使用方法:
-
 ### 前置要求：
 
-克隆仓库：
+克隆仓库并进入仓库：
 
 ```shell
 git clone https://github.com/Crazyokd/pt.csust_crawler.git
-```
-
-切换到clone位置：
-
-```shell
 cd pt.csust_crawler
 ```
 
@@ -48,26 +39,22 @@ pip install -r requirements.txt
 运行脚本：
 
 ```shell
-cd pt.csust_crawler
 start.bat
 ```
 
-> 邮箱相关配置请参考[**bulk-email-sender**](pt.csust_crawler/bulk-email-sender/README.md)，邮件功能参考自[**aahnik/bulk-email-sender**](https://github.com/aahnik/bulk-email-sender)。
+> 邮箱相关配置请参考[**bulk-email-sender**](bulk-email-sender/README.md)，邮件功能参考自[**aahnik/bulk-email-sender**](https://github.com/aahnik/bulk-email-sender)。
 
 #### 2. 爬取作业不邮件提醒
 
 运行脚本：
 
 ```shell
-cd pt.csust_crawler
 # 方法一：使用bat脚本
 get_homework.bat
 # 方法二：执行python文件
 python ./pt.csust_crawler/get_homework.py
 ```
 > **注意：必须在bat脚本目录下，否则相对路径会发生错误**
-
-
 
 ## 附加功能：
 ### 清除系统通知
@@ -89,9 +76,6 @@ pip install -r requirements.txt		#无需重复安装
 运行脚本：
 
 ```shell
-cd pt.csust_crawler/pt.csust_crawler
+cd pt.csust_crawler
 python clear_sn.py
 ```
-
-
-
