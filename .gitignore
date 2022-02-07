@@ -1,14 +1,21 @@
-pt.csust_crawler/pt.csust_crawler/table.txt
-pt.csust_crawler/reminder_data.txt
-pt.csust_crawler/pt.csust_crawler/courses/*_*.txt
+pt.csust_crawler/table.txt
+reminder_data.txt
+pt.csust_crawler/courses/*_*.txt
+pt.csust_crawler/courses/total.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
 
-pt.csust_crawler/bulk-email-sender/ATTACH
-pt.csust_crawler/bulk-email-sender/compose.md
-pt.csust_crawler/bulk-email-sender/data.csv
-pt.csust_crawler/bulk-email-sender/data_bak.csv
-pt.csust_crawler/bulk-email-sender/.env
+bulk-email-sender/ATTACH
+bulk-email-sender/compose.md
+bulk-email-sender/data.csv
+bulk-email-sender/data_bak.csv
+bulk-email-sender/.env
+
+# .venv
+.venv/
+
+# push.bat
+push.bat
