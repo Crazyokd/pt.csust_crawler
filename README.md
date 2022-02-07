@@ -70,31 +70,7 @@ python ./pt.csust_crawler/get_homework.py
 
 
 ## 附加功能：
-
-### 1、番剧下载
-
-#### 功能简介：
-
-下载《天空侵犯》到本地。（朋友想看，无意中用这种方式给做出来了:flushed:）
-
-#### 使用方法：
-
-安装依赖：
-
-```shell
-pip install -r requirements.txt		#无需重复安装
-```
-
-运行脚本：
-
-```shell
-cd sky_violation/
-python main.py
-```
-
-> 番剧将会下载在`sky_violation/sky_violation`文件夹中，请放心食用:coffee:
-
-### 2、清除系统通知
+### 清除系统通知
 
 #### 功能简介：
 
