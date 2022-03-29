@@ -79,3 +79,11 @@ pip install -r requirements.txt		#无需重复安装
 cd pt.csust_crawler
 python clear_sn.py
 ```
+
+## 代办
+- [ ] 作业发布后进行提醒
+- [ ] 作业将要截止时进行提醒
+- [ ] 提供 shell 版本脚本
+
+## 协议
+在**Apache-2.0**许可证下发布。有关更多信息，请参阅[LICENSE](LICENSE)。
