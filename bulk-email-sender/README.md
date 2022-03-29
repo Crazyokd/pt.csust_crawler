@@ -1,6 +1,4 @@
 # bulk-email-sender
-
-
 Send Templatized Dynamic Emails Automatically 
 
 ## Features 
@@ -14,7 +12,7 @@ This is a simple program which does its work perfectly. Nothing more, nothing le
 ## Usage
 
 - Make sure you have Python installed in your system.
-- Download or Clone the repo and then move into the `automailer` directory.
+- Download or Clone the repo.
 - Install all dependancies:
   ```shell
   pip install -r requirements.txt
@@ -32,7 +30,7 @@ This is a simple program which does its work perfectly. Nothing more, nothing le
 
   *You can Export CSV file from Microsoft Office Excel, Libre Office, Google Sheets, SQL Database, or NoSQL Database*
 
-- You you want to put any attachments , put them in the `ATTACH` directory.
+- You want to put any attachments , put them in the `ATTACH` directory.
 - Create a file `.env` and put the following into it:
 
   ```text
