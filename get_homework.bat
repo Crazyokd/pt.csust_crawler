@@ -1,1 +1,0 @@
-python .\\pt.csust_crawler\\get_homework.py
