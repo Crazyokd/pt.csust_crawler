@@ -1,6 +1,6 @@
 import csv
 import os
-from settings import SENDER_EMAIL, PASSWORD, DISPLAY_NAME
+from settings import SENDER_EMAIL, EMAIL_PASSWORD, DISPLAY_NAME
 from smtplib import SMTP
 import markdown
 from email.mime.text import MIMEText
@@ -29,7 +29,7 @@ def confirm_attachments():
     file_contents = []
     file_names = []
     try:
-        for filename in os.listdir('./bulk-email-sender/ATTACH'):
+        for filename in os.listdir('./bulk/ATTACH'):
 
             # entry = input(f"""TYPE IN 'Y' AND PRESS ENTER IF YOU CONFIRM T0 ATTACH {filename} 
                                     # TO SKIP PRESS ENTER: """)
@@ -37,7 +37,7 @@ def confirm_attachments():
             confirmed = True if entry.upper()[0] == 'Y' else False
             if confirmed:
                 file_names.append(filename)
-                with open(f'{os.getcwd()}/bulk-email-sender/ATTACH/{filename}', "rb") as f:
+                with open(f'{os.getcwd()}/bulk/ATTACH/{filename}', "rb") as f:
                     content = f.read()
                 file_contents.append(content)
 
@@ -51,7 +51,7 @@ def send_emails(server: SMTP, template):
     attachments = confirm_attachments()
     sent_count = 0
 
-    for receiver, message in get_msg('./bulk-email-sender/data.csv', template):
+    for receiver, message in get_msg('./bulk/data.csv', template):
 
         multipart_msg = MIMEMultipart("alternative")
 
@@ -90,20 +90,17 @@ def send_emails(server: SMTP, template):
     print(f"Sent {sent_count} emails")
 
 
-if __name__ == "__main__":
+def send(template: str):
     # host = "smtp.gmail.com"
     host = "smtp.qq.com"
     port = 587  # TLS replaced SSL in 1999
-
-    with open('./bulk-email-sender/compose.md','r',encoding='utf-8') as f:
-        template = f.read()
 
     server = SMTP(host=host, port=port)
     server.connect(host=host, port=port)
     server.ehlo()
     server.starttls()
     server.ehlo()
-    server.login(user=SENDER_EMAIL, password=PASSWORD)
+    server.login(user=SENDER_EMAIL, password=EMAIL_PASSWORD)
     
     send_emails(server, template)
         
