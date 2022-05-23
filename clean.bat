@@ -1,3 +1,4 @@
-del .\\pt.csust_crawler\\courses\\*_*.txt
-del .\\reminder_data.txt
-del /Q .\\bulk-email-sender\\ATTACH\\*
+del .\\crawler\\courses\\*_*.txt
+del .\\crawler\\courses\\total.txt
+del .\\crawler\\reminder_data.html
+del /Q .\\bulk\\ATTACH\\*
