@@ -6,6 +6,7 @@ import getpass
 import time
 from urllib.parse import urlencode
 from datetime import datetime
+from datetime import timedelta
 
 os.environ['NO_PROXY']="pt.csust.edu.cn"
 url1='http://pt.csust.edu.cn/meol/loginCheck.do'
@@ -217,7 +218,7 @@ def reminder(course_id:str, rest_hours:float):
 
 def determine_is_reminder(course_id, course_name, homework_title, deadline, job, homework_content): 
     dt_end_time = datetime.strptime(deadline, '%Y年%m月%d日 %H:%M:%S')
-    rest_hours = (dt_end_time.timestamp() - datetime.now().timestamp())/3600
+    rest_hours = (dt_end_time.timestamp() - (datetime.today() + timedelta(hours=8-int(time.strftime('%z')[0:3]))).timestamp())/3600
 
     global total_message
     message = reminder(str(course_id), rest_hours)

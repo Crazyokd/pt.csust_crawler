@@ -79,13 +79,15 @@ python crawler/clean_sn.py
 ## 待办
 - [x] 作业发布后进行提醒
 - [x] 作业将要截止时进行提醒(两次)
-- [ ] 提供 shell 版本脚本
+- [x] 提供 shell 版本脚本
 - [ ] 解析作业详情
 - [ ] 当没有抓取到任何有效数据时，重置[.env](.env)文件
 - [ ] 已访问过的系统通知不重复访问
 - [x] 使用[beautifulsoup](https://www.crummy.com/software/BeautifulSoup/)代替[pyquery](https://github.com/gawel/pyquery)
 - [ ] 采用面向对象的思想重构代码
 - [ ] 消除[.env](.env)文件最后一行留白限制
+- [x] 修复时差问题
+- [ ] 细化异常处理
 
 ## 参考
 - [aahnik/bulk-email-sender](https://github.com/aahnik/bulk-email-sender)
