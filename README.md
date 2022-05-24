@@ -88,6 +88,7 @@ python crawler/clean_sn.py
 - [ ] 消除[.env](.env)文件最后一行留白限制
 - [x] 修复时差问题
 - [ ] 细化异常处理
+- [x] 提供运行日志记录
 
 ## 参考
 - [aahnik/bulk-email-sender](https://github.com/aahnik/bulk-email-sender)

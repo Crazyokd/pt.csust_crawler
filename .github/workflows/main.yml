@@ -19,7 +19,14 @@ jobs:
         pip install -r requirements.txt
     - name: Run crawler
       run: |
-        python main.py
+        echo "## 运行时间：" > info.bak.log
+        echo `date` >> info.bak.log
+        echo "## 运行情况：" >> info.bak.log
+        python main.py >> info.bak.log
+        echo -e "=========================\n\n" >> info.bak.log
+    - name: Update logs
+      run: |
+        source update_log.sh
     - name: Commit .env #上传新的refresh_token到仓库
       run: |
         git config --global user.email "your_email"
