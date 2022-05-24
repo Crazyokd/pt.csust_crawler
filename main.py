@@ -9,8 +9,14 @@ if __name__ == '__main__':
         compose_file.write("")
 
     # get homework
-    spider.start_with_email(settings.ACCOUNT,settings.PASSWORD)
-
+    try:
+        spider.start_with_email(settings.ACCOUNT,settings.PASSWORD)
+    except:
+        print("账密错误或网络异常")
+    finally:
+        # 关闭连接
+        spider.s.close()
+        
     # determine whether sending email
     if spider.total_message != "":
         send(spider.total_message)
