@@ -215,7 +215,7 @@ def reminder(course_id:str, rest_hours:float):
 
     if write_content != "":
         with open('.env', 'a', encoding='utf-8') as dot_file:
-            dot_file.write(write_content+"\n")
+            dot_file.write("\n"+write_content)
     # 发送邮件提醒
     return message
 

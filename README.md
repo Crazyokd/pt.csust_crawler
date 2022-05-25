@@ -21,8 +21,6 @@
     ```
 
 - 填写好[.env](.env)文件中的配置信息
-    > **注意，文件最后一定要留下一行空白行。**
-
 - 修改[data.csv](bulk/data.csv)文件中的配置信息（可参考[**bulk-email-sender**](bulk/README.md)）
 
 ## 使用方法
@@ -38,7 +36,7 @@ python main.py
     2. 编辑第六行的 **`- cron`**，选择一个适当的运行频率。
         > 关于`cron`的含义和用法可参考[https://jasonet.co/posts/scheduled-actions/](https://jasonet.co/posts/scheduled-actions/)
 
-    3. 修改第25行和第26行的`git`配置信息。
+    3. 修改第32行和第33行的`git`配置信息。
 
 ## 附加功能：
 > **注意：必须在主目录下，否则相对路径会发生错误**
@@ -85,7 +83,7 @@ python crawler/clean_sn.py
 - [ ] 已访问过的系统通知不重复访问
 - [x] 使用[beautifulsoup](https://www.crummy.com/software/BeautifulSoup/)代替[pyquery](https://github.com/gawel/pyquery)
 - [ ] 采用面向对象的思想重构代码
-- [ ] 消除[.env](.env)文件最后一行留白限制
+- [x] 消除[.env](.env)文件最后一行留白限制
 - [x] 修复时差问题
 - [ ] 细化异常处理
 - [x] 提供运行日志记录
