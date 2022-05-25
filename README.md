@@ -88,7 +88,7 @@ python crawler/clean_sn.py
 - [ ] 细化异常处理
 - [x] 提供运行日志记录
 - [x] 将作业打印为`md`格式
-- [ ] 保证[info.log](info.log)文件不至于过大
+- [x] 保证[info.log](info.log)文件不至于过大(限制最大为196kB)
 
 ## 参考
 - [aahnik/bulk-email-sender](https://github.com/aahnik/bulk-email-sender)
