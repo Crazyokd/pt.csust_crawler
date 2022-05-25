@@ -154,8 +154,8 @@ def parse_homework(str,name,id):
     except Exception as e:
         print("作业"+str(id)+"解析失败")
 
-    job='标题：'+title+''+'\n发布时间：'+release_time+'\n截止时间：'+deadline+'\n作业内容：\n'+handle_job_content(job_content)+'\n'
-    print("课程名：《"+name+"》")
+    job='#### 标题：'+title+''+'\n#### 发布时间：'+release_time+'\n#### 截止时间：'+deadline+'\n#### 作业内容：\n```\n'+handle_job_content(job_content)+'\n```\n'
+    print("### 课程名：《"+name+"》")
     print(job)
     with open('crawler/courses/'+name+'_'+id+'.txt','w',encoding='utf-8') as f:
         f.write(job)
@@ -176,6 +176,7 @@ reset = False
 def main():    
     get_remind_data()
     course_list=handle_data()
+    print("### 课程清单")
     print(course_list)
     print()
     visit_course(course_list)

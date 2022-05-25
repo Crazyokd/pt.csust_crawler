@@ -87,7 +87,7 @@ python crawler/clean_sn.py
 - [x] 修复时差问题
 - [ ] 细化异常处理
 - [x] 提供运行日志记录
-- [ ] 将作业打印为`md`格式
+- [x] 将作业打印为`md`格式
 - [ ] 保证[info.log](info.log)文件不至于过大
 
 ## 参考
