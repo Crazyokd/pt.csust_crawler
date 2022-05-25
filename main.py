@@ -17,6 +17,15 @@ if __name__ == '__main__':
         # 关闭连接
         spider.s.close()
         
+    # determine whether reseting configuration
+    if spider.reset == True:
+        with open('.env', 'w', encoding='utf-8') as dot_file:
+            dot_file.write("display_name="+settings.DISPLAY_NAME+"\n")
+            dot_file.write("sender_email="+settings.SENDER_EMAIL+"\n")
+            dot_file.write("email_password="+settings.EMAIL_PASSWORD+"\n")
+            dot_file.write("account="+settings.ACCOUNT+"\n")
+            dot_file.write("password="+settings.PASSWORD+"\n")
+            
     # determine whether sending email
     if spider.total_message != "":
         send(spider.total_message)

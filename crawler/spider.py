@@ -172,12 +172,16 @@ def clear_sn():
     visit_sn_list()
 
 
+reset = False
 def main():    
     get_remind_data()
     course_list=handle_data()
     print(course_list)
     print()
     visit_course(course_list)
+    if len(course_list) == 0:
+        global reset
+        reset = True
 
 
 def start_with_email(account,password):
