@@ -71,8 +71,6 @@ def visit_sn_list():
         response=s.request(method='get',url=base_url+urlencode(prs),timeout=5,headers=headers)
         html = BeautifulSoup(response.text, 'html.parser').select("html > body > div")[0]
         table = str(html.select("table.valuelist")[0])
-        # with open('table.html','w',encoding='utf-8') as f:
-        #     f.write(table)
         
         # 待优化：仅爬取未访问过的系统通知
         regularexp=re.compile('<a class="infolist" href="message_content.jsp\?nid=(\d*)"',re.S)
@@ -102,7 +100,7 @@ def visit_sn(id):
 
 def visit_course(data):
     # clear total.txt
-    with open('crawler/courses/total.txt','w',encoding='utf-8') as f:
+    with open('crawler/courses/total.txt','w',encoding='utf-8',newline='') as f:
         f.write("")
     base_url='http://pt.csust.edu.cn/meol/jpk/course/layout/newpage/index.jsp?'
     for id,name in data:
@@ -138,8 +136,14 @@ def handle_job_content(job_content:str):
     job_content=job_content.replace("&amp;nbsp;"," ")\
         .replace("&lt;br/&gt;","\n")
     # 去除标签
-    return re.sub("&lt;.*?&gt;","",job_content)
-    
+    job_content = re.sub("&lt;.*?&gt;","",job_content)
+    # optmize
+    job_content = job_content.replace("&amp;", "").replace("gt;", ">").replace("lt;", "<")
+    # clean redundant line
+    job_content = re.sub("\n{3,}", "\n\n", job_content)
+    job_content = re.sub("(\r\n){3,}", "\r\n\r\n", job_content)
+
+    return job_content
 
 def parse_homework(str,name,id):
     try:
@@ -157,9 +161,9 @@ def parse_homework(str,name,id):
     job='#### 标题：'+title+''+'\n#### 发布时间：'+release_time+'\n#### 截止时间：'+deadline+'\n#### 作业内容：\n```\n'+handle_job_content(job_content)+'\n```\n'
     print("### 课程名：《"+name+"》")
     print(job)
-    with open('crawler/courses/'+name+'_'+id+'.txt','w',encoding='utf-8') as f:
+    with open('crawler/courses/'+name+'_'+id+'.txt', 'w', encoding='utf-8', newline='') as f:
         f.write(job)
-    with open('crawler/courses/total.txt','a',encoding='utf-8') as f:
+    with open('crawler/courses/total.txt', 'a', encoding='utf-8', newline='') as f:
         f.write("\n================================================================\n") #最后的换行似乎会被忽略
         f.write(job)
 
@@ -229,6 +233,6 @@ def determine_is_reminder(course_id, course_name, homework_title, deadline, job,
     message = reminder(str(course_id), rest_hours)
     if message != "":
         total_message += message + "：<<" + course_name + "：" + homework_title + ">>\r\n\n\n"
-        with open('./bulk/ATTACH/hw_detail.md','a',encoding='utf-8') as f:
+        with open('./bulk/ATTACH/hw_detail.md', 'a', encoding='utf-8', newline='') as f:
             f.write("\n================================================================\n") #最后的换行似乎会被忽略
             f.write(job)
