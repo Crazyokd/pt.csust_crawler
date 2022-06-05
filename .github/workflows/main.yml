@@ -11,6 +11,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - run: git checkout instance
+
     - uses: actions/setup-python@v3
     
     - name: Set env
@@ -32,9 +36,10 @@ jobs:
         git config --global user.email "your_email"
         git config --global user.name "your_nickname"
         git add .
-        git commit --amend -m "chore: run success"
+        git commit --amend --no-edit
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: instance
         force: true
