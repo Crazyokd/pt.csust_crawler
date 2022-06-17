@@ -90,7 +90,7 @@ python crawler/clean_sn.py
 - [x] 将作业打印为`md`格式
 - [x] 保证[info.log](info.log)文件不至于过大(限制最大为196kB)
 - [x] 修复 GA 更新提交记录
-- [ ] 通过运行情况动态调整运行频率
+- [x] 通过运行情况动态调整运行频率
 
 ## 参考
 - [aahnik/bulk-email-sender](https://github.com/aahnik/bulk-email-sender)

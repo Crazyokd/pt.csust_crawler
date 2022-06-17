@@ -183,10 +183,12 @@ def main():
     print("### 课程清单")
     print(course_list)
     print()
-    visit_course(course_list)
+
     if len(course_list) == 0:
         global reset
         reset = True
+    else:
+        visit_course(course_list)
 
 
 def start_with_email(account,password):

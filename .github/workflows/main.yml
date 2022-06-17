@@ -31,6 +31,9 @@ jobs:
     - name: Update logs
       run: |
         source update_log.sh
+    - name: Adjust running frequency
+      run: |
+        source adjust_frequency.sh
     - name: Commit .env #上传新的refresh_token到仓库
       run: |
         git config --global user.email "your_email"
