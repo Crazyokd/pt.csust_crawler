@@ -5,7 +5,17 @@
 # checkout master branch
 git checkout master > /dev/null 2>&1
 
-level=`dotenv get run_frequency_level`
+# generate level variable
+OLD_IFS="$IFS"
+
+IFS="="
+kv=(`grep run_frequency_level .env`)
+IFS="'"
+kv=(${kv[1]})
+
+level=${kv[1]}
+
+IFS="$OLD_IFS"
 
 # generate the frequency of program running
 mult=1
