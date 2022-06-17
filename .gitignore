@@ -21,3 +21,4 @@ push.bat
 
 # configuration file
 .env.bak
+running_frequency

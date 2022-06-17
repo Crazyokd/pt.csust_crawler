@@ -13,6 +13,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
+        token: ${{ secrets.WORKFLOW_TOKEN }}
     - run: git checkout instance
 
     - uses: actions/setup-python@v3
@@ -31,18 +32,24 @@ jobs:
     - name: Update logs
       run: |
         source update_log.sh
-    - name: Adjust running frequency
-      run: |
-        source adjust_frequency.sh
     - name: Commit .env #上传新的refresh_token到仓库
       run: |
         git config --global user.email "your_email"
         git config --global user.name "your_nickname"
         git add .
         git commit --amend --no-edit
-    - name: Push changes
+    - name: Push instance
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: instance
         force: true
+    - name: Adjust running frequency
+      run: |
+        git checkout master > /dev/null 2>&1
+        source push.sh
+    - name: Push master
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: master

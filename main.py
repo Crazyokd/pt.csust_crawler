@@ -15,8 +15,9 @@ if __name__ == '__main__':
         spider.start_with_email(settings.ACCOUNT,settings.PASSWORD)
 
         # determine whether reseting configuration
+        number_of_invalid_run = int(settings.NUMBER_OF_INVALID_RUN)
+        run_frequency_level = int(settings.RUN_FREQUENCY_LEVEL)
         if spider.reset == True:
-            number_of_invalid_run = int(settings.NUMBER_OF_INVALID_RUN)
             # no data captured for the first time
             if number_of_invalid_run == 0:
                 with open('.env', 'w', encoding='utf-8') as dot_file:
@@ -27,14 +28,13 @@ if __name__ == '__main__':
                     dot_file.write("password="+settings.PASSWORD+"\n")
 
             number_of_invalid_run += 1
-            os.system('dotenv set number_of_invalid_run '+str(number_of_invalid_run))
-            run_frequency_level = int(settings.RUN_FREQUENCY_LEVEL)
             if run_frequency_level < 3 and number_of_invalid_run >= 3 * math.pow(2, run_frequency_level):
                 run_frequency_level = min(3, run_frequency_level+1)
-                os.system('dotenv set run_frequency_level '+str(run_frequency_level))
         else:
-            os.system('dotenv set run_frequency_level 0')
-            os.system('dotenv set number_of_invalid_run 0')
+            run_frequency_level = 0
+            number_of_invalid_run = 0
+        os.system('dotenv set run_frequency_level '+str(run_frequency_level))
+        os.system('dotenv set number_of_invalid_run '+str(number_of_invalid_run))        
                 
         # determine whether sending email
         if spider.total_message != "":
@@ -42,7 +42,7 @@ if __name__ == '__main__':
 
     except IndexError:
         print("Oops! Your account is blocked or Wrong account or password")
-    except requests.exceptions.ConnectionError:
+    except requests.exceptions.ConnectionError or requests.exceptions.ReadTimeout:
         print("Oops! Please check the network connection")
     finally:
         # 关闭连接

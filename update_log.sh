@@ -1,6 +1,7 @@
-#!/usr/env bash
+#!/usr/bin/env bash
 
 # This script is used to update the log file.
+# It also undertakes the task of generating frequency variable.
 
 # update README.md
 echo "# 最新运行情况" > README.md
@@ -25,3 +26,33 @@ if [ $size -ge 196000 ]; then
     done;
     echo "The log file is too large, delete half of the content."
 fi
+
+
+# generate the level variable
+
+# OLD_IFS="$IFS"
+
+# IFS="="
+# kv=(`grep run_frequency_level .env`)
+# IFS="'"
+# kv=(${kv[1]})
+
+# level=${kv[1]}
+
+# IFS="$OLD_IFS"
+
+# # cp .env to running_frequency, because the .env file is special.
+# cp .env running_frequency
+
+level=`cat .env | grep -E -o "run_frequency_level='[0-9]+'"`
+level=${level: 21}
+level=${level%*\'}
+
+# generate the frequency variable
+mult=1
+for i in $(seq 1 $level); do
+    mult=$(($mult * 2))
+done;
+frequency=$(($mult * 3))
+echo "new_frequency=$frequency"
+echo $frequency > running_frequency
