@@ -8,6 +8,7 @@ pre_frequency=${pre_frequency: 2}
 echo "pre_frequency=$pre_frequency"
 
 frequency=`cat running_frequency`
+rm running_frequency
 echo "new_frequency=$frequency"
 
 if [ "$pre_frequency" = "$frequency" -o -z "$frequency" ]; then
