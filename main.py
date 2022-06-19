@@ -39,8 +39,10 @@ if __name__ == '__main__':
         run_frequency_level = 0
         number_of_invalid_run = 0
     os.system('dotenv set run_frequency_level '+str(run_frequency_level))
+    print()
     os.system('dotenv set number_of_invalid_run '+str(number_of_invalid_run))        
-            
+    print()
+
     # determine whether sending email
     if pt_crawler.total_message != "":
         send(pt_crawler.total_message)
