@@ -12,8 +12,7 @@ import time
 from urllib.parse import urlencode
 from datetime import datetime
 from datetime import timedelta
-from crawler.util import parse_exception
-from crawler.util import handle_job_content
+from crawler.util import handle_job_content_use_html2text, parse_exception
 
 os.environ['NO_PROXY']="pt.csust.edu.cn" # cancel proxy
 
@@ -161,12 +160,13 @@ class PTCrawler():
             re_deadline=re.compile('<th>截止时间</th>.*?<td>(.*?)</td>',re.S)
             deadline=re.findall(re_deadline,str)[0].strip()
             re_job_content=re.compile('<th class="top">作业内容</th>.*?<td class="text">.*?<input type=.*?value=(.*?)>',re.S)
-            job_content=re.findall(re_job_content,str)[0][1:-1].replace("&lt;p&gt;",'').replace("&lt;/p&gt;",'').strip()
+            # job_content=re.findall(re_job_content,str)[0][1:-1].replace("&lt;p&gt;",'').replace("&lt;/p&gt;",'').strip()
+            job_content = re.findall(re_job_content, str)[0][1:-1].strip()
         except Exception as e:
             print("作业"+str(id)+"解析失败")
 
         job='#### 标题：' + title + '' + '\n#### 发布时间：' + release_time + '\n#### 截止时间：' + \
-            deadline + '\n#### 作业内容：\n```\n' + handle_job_content(job_content) + '\n```\n'
+            deadline + '\n#### 作业内容：\n```\n' + handle_job_content_use_html2text(job_content) + '\n```\n'
         print("### 课程名：《"+name+"》")
         print(job)
         with open('crawler/courses/'+name+'_'+id+'.txt', 'w', encoding='utf-8', newline='') as f:

@@ -6,6 +6,8 @@
 
 import getpass
 import re
+import html2text
+
 
 def get_info():
     info = {}
@@ -36,3 +38,7 @@ def handle_job_content(self, job_content:str):
     job_content = re.sub("(\r\n){3,}", "\r\n\r\n", job_content)
 
     return job_content
+
+
+def handle_job_content_use_html2text(job_content:str):
+    return html2text.html2text(job_content)

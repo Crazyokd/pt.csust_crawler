@@ -2,3 +2,4 @@ python-dotenv[cli]
 Markdown
 requests
 beautifulsoup4
+html2text

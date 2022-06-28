@@ -78,7 +78,7 @@ python clean_sn.py
 - [x] 作业发布后进行提醒
 - [x] 作业将要截止时进行提醒(两次)
 - [x] 提供 shell 版本脚本
-- [ ] 解析作业详情
+- [x] 解析作业详情
 - [x] 当没有抓取到任何有效数据时，重置[.env](.env)文件
 - [ ] 已访问过的系统通知不重复访问
 - [x] 使用[beautifulsoup](https://www.crummy.com/software/BeautifulSoup/)代替[pyquery](https://github.com/gawel/pyquery)
@@ -88,13 +88,13 @@ python clean_sn.py
 - [x] 提供运行日志记录
 - [x] 将作业打印为`md`格式
 - [x] 保证[info.log](info.log)文件不至于过大(限制最大为196kB)
-- [x] 修复 GA 更新提交记录
 - [x] 通过运行情况动态调整运行频率
 
-## 参考
+## 致谢
 - [aahnik/bulk-email-sender](https://github.com/aahnik/bulk-email-sender)
 - [bs4](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 - [ad-m/github-push-action](https://github.com/ad-m/github-push-action)
+- [aaronsw/html2text](https://github.com/aaronsw/html2text)
 
 ## 协议
 在**Apache-2.0**许可证下发布。有关更多信息，请参阅[LICENSE](LICENSE)。
