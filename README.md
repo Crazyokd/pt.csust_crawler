@@ -80,17 +80,14 @@ python clean_sn.py
 - [x] 作业发布后进行提醒
 - [x] 作业将要截止时进行提醒(两次)
 - [x] 提供 shell 版本脚本
-- [x] 解析作业详情
+- [x] 解析作业详情，将作业打印为`md`格式
 - [x] 当没有抓取到任何有效数据时，重置[.env](.env)文件
 - [ ] 已访问过的系统通知不重复访问
 - [x] 使用[beautifulsoup](https://www.crummy.com/software/BeautifulSoup/)代替[pyquery](https://github.com/gawel/pyquery)
 - [x] 采用面向对象的思想重构代码
-- [x] 消除[.env](.env)文件最后一行留白限制
-- [x] 修复时差问题
-- [x] 提供运行日志记录
-- [x] 将作业打印为`md`格式
-- [x] 保证[info.log](info.log)文件不至于过大(限制最大为196kB)
+- [x] 提供运行日志记录，并保证[info.log](info.log)文件不至于过大(限制最大为196kB)
 - [x] 通过运行情况动态调整运行频率
+- [ ] 优化 json method，关注分页
 
 ## 致谢
 - [aahnik/bulk-email-sender](https://github.com/aahnik/bulk-email-sender)
