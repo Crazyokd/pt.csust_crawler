@@ -13,6 +13,7 @@ from urllib.parse import urlencode
 from datetime import datetime
 from datetime import timedelta
 from crawler.util import handle_job_content_use_html2text, parse_exception
+import json
 
 os.environ['NO_PROXY']="pt.csust.edu.cn" # cancel proxy
 
@@ -20,6 +21,7 @@ class PTCrawler():
     url1='http://pt.csust.edu.cn/meol/loginCheck.do'
     url2='http://pt.csust.edu.cn/meol/welcomepage/student/interaction_reminder_v8.jsp'
     url4='http://pt.csust.edu.cn/meol/common/hw/student/hwtask.jsp?tagbug=client&strStyle=new06'
+    url5='http://pt.csust.edu.cn/meol/hw/stu/hwStuHwtList.do?'
 
     data = [['logintoken', '1632975162171'], ['IPT_LOGINUSERNAME','0'],['IPT_LOGINPASSWORD','0']]
 
@@ -126,23 +128,40 @@ class PTCrawler():
         base_url='http://pt.csust.edu.cn/meol/jpk/course/layout/newpage/index.jsp?'
         for id,name in data:
             params={
+                # 'um': 60430, 
                 'courseId':id
             }
-            t_url=base_url+urlencode(params)
-            # 得到DWRSESSIONID
-            self.s.request(method='get',url=t_url,timeout=5,headers=self.headers)
-
             test_head=self.headers.copy()
-            test_head['Referer']=t_url
-            response=self.s.request(method='get',url=self.url4,timeout=5,headers=test_head)
-            html = BeautifulSoup(response.text, "html.parser").select("table.valuelist")[0]
-            self.parse_homework_list(str(html), name)
+            # origin method
+            # self.parse_homework_list(name, test_head, base_url+urlencode(params))
+            # json method
+            self.parse_homework_list_use_json(name, test_head, self.url5 + urlencode(params))
 
 
-    def parse_homework_list(self, str:str, name):
+    def parse_homework_list_use_json(self, name, test_head, t_url):
+        response = self.s.request(method='get', url=t_url, timeout=5, headers=test_head)
+        hwtList = json.loads(response.text)['datas']['hwtList']
+        base_url='http://pt.csust.edu.cn/meol/common/hw/student/hwtask.view.jsp?hwtid='
+        for hw in hwtList:
+            for key in hw:
+                if key == "submitStruts":
+                    if hw[key] == True:
+                        response=self.s.request(method='get', url=base_url+str(hw['id']), timeout=5, headers=self.headers)
+                        self.parse_homework(response.text, name, str(hw['id']))
+                        time.sleep(1)
+                    break
+        print()
+
+
+    def parse_homework_list(self, name, test_head, t_url):
+        # 得到DWRSESSIONID
+        self.s.request(method='get',url=t_url,timeout=5,headers=self.headers)
+        test_head['Referer']=t_url
+        response=self.s.request(method='get',url=self.url4,timeout=5,headers=test_head)
+        html = str(BeautifulSoup(response.text, "html.parser").select("table.valuelist")[0])
         # 注意'?'一定要转义
         regexp=re.compile('<a class="enter" href="write.jsp\?hwtid=(\d*)"',re.S)
-        ans=re.findall(regexp,str)
+        ans=re.findall(regexp, html)
         base_url='http://pt.csust.edu.cn/meol/common/hw/student/hwtask.view.jsp?hwtid='
         for i in ans:
             response=self.s.request(method='get', url=base_url+i, timeout=5, headers=self.headers)
@@ -151,7 +170,7 @@ class PTCrawler():
         print()
         
 
-    def parse_homework(self, str,name,id):
+    def parse_homework(self, str, name, id):
         try:
             re_title=re.compile('<th width="18%">标题</th>.*?<td>(.*?)&nbsp;</td>',re.S)
             title=re.findall(re_title,str)[0]

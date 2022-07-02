@@ -24,7 +24,7 @@ def parse_exception(e):
         print("Oops! You terminated the program manually")
 
     
-def handle_job_content(self, job_content:str):
+def handle_job_content(job_content:str):
     # job_content=re.sub("&lt;.*?&gt;","",job_content)
     # 替换空格和换行符
     job_content=job_content.replace("&amp;nbsp;"," ")\
