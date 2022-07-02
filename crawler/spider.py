@@ -142,12 +142,15 @@ class PTCrawler():
         response = self.s.request(method='get', url=t_url, timeout=5, headers=test_head)
         hwtList = json.loads(response.text)['datas']['hwtList']
         base_url='http://pt.csust.edu.cn/meol/common/hw/student/hwtask.view.jsp?hwtid='
+        publisher = ""
         for hw in hwtList:
             for key in hw:
+                if key == "realName":
+                    publisher = hw[key]
                 if key == "submitStruts":
                     if hw[key] == True:
                         response=self.s.request(method='get', url=base_url+str(hw['id']), timeout=5, headers=self.headers)
-                        self.parse_homework(response.text, name, str(hw['id']))
+                        self.parse_homework(response.text, name, str(hw['id']), publisher=publisher)
                         time.sleep(1)
                     break
         print()
@@ -170,7 +173,7 @@ class PTCrawler():
         print()
         
 
-    def parse_homework(self, str, name, id):
+    def parse_homework(self, str, name, id, publisher = "None"):
         try:
             re_title=re.compile('<th width="18%">标题</th>.*?<td>(.*?)&nbsp;</td>',re.S)
             title=re.findall(re_title,str)[0]
@@ -184,7 +187,7 @@ class PTCrawler():
         except Exception as e:
             print("作业"+str(id)+"解析失败")
 
-        job='#### 标题：' + title + '' + '\n#### 发布时间：' + release_time + '\n#### 截止时间：' + \
+        job='#### 标题：' + title + '' + '\n#### 发布人：' + publisher + '\n#### 发布时间：' + release_time + '\n#### 截止时间：' + \
             deadline + '\n#### 作业内容：\n' + handle_job_content_use_html2text(job_content) + '\n'
         print("### 课程名：《"+name+"》")
         print(job)
