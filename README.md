@@ -1,4 +1,6 @@
 # pt.csust_crawler
+<p style="text-align: center;"><a href="https://www.oscs1024.com/project/Crazyokd/pt.csust_crawler?ref=badge_small"><img src="https://www.oscs1024.com/platform/badge/Crazyokd/pt.csust_crawler.svg?size=small" alt="OSCS Status"></a></p>
+
 [长沙理工大学网络教学平台](http://pt.csust.edu.cn/meol/index.do)的作业发布和作业截止提醒
 
 ## 功能简介：
