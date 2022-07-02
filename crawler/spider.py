@@ -166,7 +166,7 @@ class PTCrawler():
             print("作业"+str(id)+"解析失败")
 
         job='#### 标题：' + title + '' + '\n#### 发布时间：' + release_time + '\n#### 截止时间：' + \
-            deadline + '\n#### 作业内容：\n```\n' + handle_job_content_use_html2text(job_content) + '\n```\n'
+            deadline + '\n#### 作业内容：\n' + handle_job_content_use_html2text(job_content) + '\n'
         print("### 课程名：《"+name+"》")
         print(job)
         with open('crawler/courses/'+name+'_'+id+'.txt', 'w', encoding='utf-8', newline='') as f:
