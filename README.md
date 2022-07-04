@@ -88,6 +88,7 @@ python clean_sn.py
 - [x] 提供运行日志记录，并保证[info.log](info.log)文件不至于过大(限制最大为196kB)
 - [x] 通过运行情况动态调整运行频率
 - [ ] 优化 json method，关注分页
+- [ ] 支持多种邮箱
 
 ## 致谢
 - [aahnik/bulk-email-sender](https://github.com/aahnik/bulk-email-sender)
